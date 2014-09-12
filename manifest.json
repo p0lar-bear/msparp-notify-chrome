@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "MSPARP Notifier",
+    "version": "0.1",
+
+    "description": "Notification options for MSPARP chat rooms.",
+    //"icons": [],
+    
+    "content_scripts": [
+	{
+	    "matches": ["http://unsupported.msparp.com/chat/*"],
+	    "exclude_matches": ["http://unsupported.msparp.com/chat/*/log"],
+	    "js": ["jquery-1.10.2.min.js", "msparp_notify.js"],
+	    "all_frames": true
+	}
+    ],
+
+    "web_accessible_resources": [
+	"jquery-1.10.2.min.map",
+	"sounds/*"
+    ]
+}
