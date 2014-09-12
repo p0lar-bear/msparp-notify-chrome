@@ -7,5 +7,6 @@ That's really all there is to say on the matter.
 ## Credits ##
 
 Sound effects in this version used under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/us/).
-System Message Notification Sound - ["Blop Sound" by Mark DiAngelo](http://soundbible.com/2067-Blop.html)
-User Message Notification Sound - ["Tiny Button Push Sound" by Mike Koenig](http://soundbible.com/419-Tiny-Button-Push.html)
+
+* System Message Notification Sound - ["Blop Sound" by Mark DiAngelo](http://soundbible.com/2067-Blop.html)
+* User Message Notification Sound - ["Tiny Button Push Sound" by Mike Koenig](http://soundbible.com/419-Tiny-Button-Push.html)
