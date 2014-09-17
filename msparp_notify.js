@@ -1,8 +1,14 @@
 /* global $ chrome MutationObserver Audio */
 
+/**
+ * Callback for DOM mutation.
+ *
+ * @param recs - Array of MutationRecords
+ * @param self - The MutationObserver calling the callback
+ */
 function mutConversation(recs, self) {
   console.log('conversation mutated');
-  if (!document.hasFocus()) {
+  if (!document.hasFocus() || isIdle()) {
     for (var i = 0; i < recs.length; i++) {
       for (var j = 0; j < recs[i].addedNodes.length; j++) {
         var msg = recs[i].addedNodes[j];
@@ -14,7 +20,7 @@ function mutConversation(recs, self) {
       }
     }
   } else {
-    console.log('window has focus, nothing to do');
+    console.log('window has focus, not idle, nothing to do');
   }
 }
 
@@ -33,5 +39,24 @@ function playSound(soundName, vol) {
   }
 }
 
+/**
+ * Updates the idle timer.
+ */
+function resetIdleTimer() {
+  lastAct = Date.now();
+}
+
+/**
+ *
+ */
+function isIdle() {
+  var now = Date.now();
+  //Use config value later. Goes by minutes
+  var threshold = 2 * 60000;
+  return (now - lastAct) > threshold;
+}
+
+var lastAct;
 var obsConversation = new MutationObserver(mutConversation);
 obsConversation.observe($('#conversation')[0], { childList: true });
+$(window).on('load mousedown mousemove click keypress', resetIdleTimer);
