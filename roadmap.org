@@ -1,0 +1,33 @@
+* Version 0.2 [0%]
+** TODO Idle timer [1/2]
+*** DONE Core logic
+*** TODO Timer uses stored value
+** TODO Settings page [0/2]
+*** TODO Scripts [0/4]
+**** TODO Save data in storage
+**** TODO Read settings and populate
+**** TODO Listen for changes and update
+     In the event of multiple pages open at once
+*** TODO HTML
+* Version 0.3 [0%]
+** TODO Sound configuration [0/2]
+   Sound settings will use chrome.storage.local rather than sync
+*** TODO Sound Chooser [0/3]
+    Dynamically-generated list of files stored in the extension.
+**** TODO Research JavaScript File API
+     It may be more or less deprecated by the W3 but Chrome still uses it
+     in its API. I want to know if it's possible for an extension to
+     write a blob to disk.
+**** TODO Implement custom sounds
+     If the File API can write to the extension directory, possibility for
+     unlimited custom sounds. Otherwise, chrome.storage.local should have
+     room enough for some small sound data. Nobody needs to play a whole
+     song for a notification.
+**** TODO More sounds
+     Gonna need some help finding them.
+*** TODO Volume Control
+** TODO Popup notifications
+   Using chrome.notifications
+*** TODO Logic
+*** TODO Options page
+* Version 0.4 [0%]
