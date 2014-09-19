@@ -7,7 +7,6 @@
  * @param self - The MutationObserver calling the callback
  */
 function mutConversation(recs, self) {
-  console.log('conversation mutated');
   chrome.storage.local.get([
     'msparpUseIdleTimer', 'msparpIdleTime'
   ], function (stored) {
@@ -44,10 +43,16 @@ function playSound(soundName, vol) {
 }
 
 /**
- * Updates the idle timer.
+ * Event handler - updates the idle timer.
+ *
+ * @param e - jQuery event object
  */
-function resetIdleTimer() {
-  lastAct = Date.now();
+function resetIdleTimer(e) {
+  if (e.type !== 'mousemove' || !(lastX === e.screenX || lastY === e.screenY)) {
+    lastAct = Date.now();
+    lastX = e.screenX;
+    lastY = e.screenY;
+  }
 }
 
 /**
@@ -64,7 +69,7 @@ function isIdle(stored) {
   }
 }
 
-var lastAct;
+var lastAct, lastX, lastY;
 var obsConversation = new MutationObserver(mutConversation);
 obsConversation.observe($('#conversation')[0], { childList: true });
-$(window).on('load mousedown mousemove click keypress', resetIdleTimer);
+$(window).on('load mousedown mousemove scroll click keypress', resetIdleTimer);
