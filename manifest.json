@@ -5,7 +5,13 @@
 
     "description": "Notification options for MSPARP chat rooms.",
     //"icons": [],
+
+    "permissions": [
+	"storage"
+    ],
     
+    "options_page": "options.html",
+
     "content_scripts": [
 	{
 	    "matches": ["http://unsupported.msparp.com/chat/*"],

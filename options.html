@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="jquery-ui.css">
+  <link rel="stylesheet" href="options.css">
+  <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="jquery-ui.min.js"></script>
+  <script type="text/javascript" src="options.js"></script>
+</head>
+<body>
+  <h1>MSPARP Notifier Options</h1>
+  <div class="ui-option ui-widget ui-corner-all">
+    <h2 class="ui-widget-header ui-corner-top">
+      <span class="ui-icon ui-header-icon ui-icon-clock"></span>
+      Idle Timer
+    </h2>
+    <div class="ui-widget-content ui-corner-bottom">
+      <p>
+	<label>
+	  <input type="checkbox" id="useIdleTimer"> Use Idle Timer
+	</label>
+      </p>
+      <p>
+	<label for="idleTime">
+	  Use notification sounds if tab/window is active after
+	  <input type="number" id="idleTime" min="1"> minutes
+	</label>
+      </p>
+    </div>
+  </div>
+      
+<!--  <div class="ui-option ui-widget ui-corner-all">
+    <h2 class="ui-widget-header ui-corner-top">
+      <span class="ui-icon ui-header-icon ui-icon-signal-diag"></span>
+      Ignore users
+    </h2>
+    <div class="ui-widget-content ui-corner-bottom">
+      <input type="checkbox" id="useIdleTimer">
+      <label for="useIdleTimer">
+	Use notification sounds if tab/window is active after
+      </label>
+      <input type="number" id="idleTime" min="1">
+      <label for="useIdleTimer">minutes</label>
+    </div>
+  </div>
+
+  <div class="ui-option ui-widget ui-corner-all">
+    <h2 class="ui-widget-header ui-corner-top">
+      <span class="ui-icon ui-header-icon ui-icon-signal-diag"></span>
+      Sounds
+    </h2>
+    <div class="ui-widget-content ui-corner-bottom">
+      <h3>
+	<span class="ui-icon ui-header-icon ui-icon-volume-off"></span>
+	Notification Sound
+      </h3>
+      <select id="notifySound">
+      </select>
+
+      <h3>
+	<span class="ui-icon ui-header-icon ui-icon-volume-on"></span>
+	Notification Volume
+      </h3>
+      <div id="volSlider"></div>   
+-->
+    </div>
+  </div>
+
+  <div class="ui-formfooter ui-widget-content ui-corner-all">
+    <button id="saveSettings">Save Settings</button>
+    <button id="discardChanges">Discard Changes</button>
+  </div>
+
+  <div id="popupMsg"></div>
+</body>
+</html>

@@ -8,20 +8,24 @@
  */
 function mutConversation(recs, self) {
   console.log('conversation mutated');
-  if (!document.hasFocus() || isIdle()) {
-    for (var i = 0; i < recs.length; i++) {
-      for (var j = 0; j < recs[i].addedNodes.length; j++) {
-        var msg = recs[i].addedNodes[j];
-        if (msg.className === 'system') {
-          playSound('system-inbound.wav', 0.75);
-        } else {
-          playSound('user-inbound.wav', 0.75);
-        }
-      }
-    }
-  } else {
-    console.log('window has focus, not idle, nothing to do');
-  }
+  chrome.storage.local.get([
+    'msparpUseIdleTimer', 'msparpIdleTime'
+  ], function (stored) {
+       if (!document.hasFocus() || isIdle(stored)) {
+         for (var i = 0; i < recs.length; i++) {
+           for (var j = 0; j < recs[i].addedNodes.length; j++) {
+             var msg = recs[i].addedNodes[j];
+             if (msg.className === 'system') {
+               playSound('system-inbound.wav', 0.75);
+             } else {
+               playSound('user-inbound.wav', 0.75);
+             }
+           }
+         }
+       } else {
+         console.log('window has focus, not idle, nothing to do');
+       }
+     });
 }
 
 /**
@@ -49,11 +53,15 @@ function resetIdleTimer() {
 /**
  *
  */
-function isIdle() {
-  var now = Date.now();
-  //Use config value later. Goes by minutes
-  var threshold = 2 * 60000;
-  return (now - lastAct) > threshold;
+function isIdle(stored) {
+  if (stored.msparpUseIdleTimer && stored.msparpIdleTime) {
+    var now = Date.now();
+    //minutes * 60000 = time in ms
+    var threshold = stored.msparpIdleTime * 60000;
+    return (now - lastAct) > threshold;
+  } else {
+    return false;
+  }
 }
 
 var lastAct;
