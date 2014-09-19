@@ -1,14 +1,14 @@
-* Version 0.2 [0%]
-** TODO Idle timer [1/2]
+* Version 0.2 [100%]
+** DONE Idle timer [2/2]
 *** DONE Core logic
-*** TODO Timer uses stored value
-** TODO Settings page [0/2]
-*** TODO Scripts [0/4]
-**** TODO Save data in storage
-**** TODO Read settings and populate
-**** TODO Listen for changes and update
+*** DONE Timer uses stored value
+** DONE Settings page [2/2]
+*** DONE Scripts [3/3]
+**** DONE Save data in storage
+**** DONE Read settings and populate
+**** DONE Listen for changes and update
      In the event of multiple pages open at once
-*** TODO HTML
+*** DONE HTML
 * Version 0.3 [0%]
 ** TODO Sound configuration [0/2]
    Sound settings will use chrome.storage.local rather than sync
