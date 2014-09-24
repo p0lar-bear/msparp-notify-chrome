@@ -7,24 +7,20 @@
  * @param self - The MutationObserver calling the callback
  */
 function mutConversation(recs, self) {
-  chrome.storage.local.get([
-    'msparpUseIdleTimer', 'msparpIdleTime'
-  ], function (stored) {
-       if (!document.hasFocus() || isIdle(stored)) {
-         for (var i = 0; i < recs.length; i++) {
-           for (var j = 0; j < recs[i].addedNodes.length; j++) {
-             var msg = recs[i].addedNodes[j];
-             if (msg.className === 'system') {
-               playSound('system-inbound.wav', 0.75);
-             } else {
-               playSound('user-inbound.wav', 0.75);
-             }
-           }
-         }
-       } else {
-         console.log('window has focus, not idle, nothing to do');
-       }
-     });
+  if (!(document.hasFocus() || isIdle)) {
+    for (var i = 0; i < recs.length; i++) {
+      for (var j = 0; j < recs[i].addedNodes.length; j++) {
+        var msg = recs[i].addedNodes[j];
+        if (msg.className === 'system') {
+          playSound('system-inbound.wav', 0.75);
+        } else {
+          playSound('user-inbound.wav', 0.75);
+        }
+      }
+    }
+  } else {
+    console.log('window has focus or computer is idle, nothing to do');
+  }
 }
 
 /**
@@ -42,34 +38,15 @@ function playSound(soundName, vol) {
   }
 }
 
-/**
- * Event handler - updates the idle timer.
- *
- * @param e - jQuery event object
- */
-function resetIdleTimer(e) {
-  if (e.type !== 'mousemove' || !(lastX === e.screenX || lastY === e.screenY)) {
-    lastAct = Date.now();
-    lastX = e.screenX;
-    lastY = e.screenY;
+function handleIdleUpdate(message, sender, sendResponse) {
+  if ('idleState' in message) {
+    console.log('recieved idle state message: computer is '+message.idleState);
+    isIdle = (message.idleState !== 'active');
   }
 }
 
-/**
- *
- */
-function isIdle(stored) {
-  if (stored.msparpUseIdleTimer && stored.msparpIdleTime) {
-    var now = Date.now();
-    //minutes * 60000 = time in ms
-    var threshold = stored.msparpIdleTime * 60000;
-    return (now - lastAct) > threshold;
-  } else {
-    return false;
-  }
-}
-
-var lastAct, lastX, lastY;
+var isIdle = false;
 var obsConversation = new MutationObserver(mutConversation);
 obsConversation.observe($('#conversation')[0], { childList: true });
 $(window).on('load mousedown mousemove scroll click keypress', resetIdleTimer);
+chrome.runtime.onMessage.addListener(handleIdleUpdate);

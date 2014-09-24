@@ -7,9 +7,16 @@
     //"icons": [],
 
     "permissions": [
-	"storage"
+	"idle",
+	"storage",
+	"tabs"
     ],
     
+    "background" : {
+	"persistent": false,
+	"scripts": ["eventscript.js"]
+    },
+
     "options_page": "options.html",
 
     "content_scripts": [
