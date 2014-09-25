@@ -1,5 +1,10 @@
 /* global chrome $ console */
 
+function playSound() {}
+chrome.runtime.getBackgroundPage(function (bgPage) {
+  playSound = bgPage.playSound;
+});
+
 /**
  * Callback for chrome.storage.local.get.
  * Sets the UI elements to match the settings retrieved from storage.
@@ -14,6 +19,10 @@ function updatePage(stored) {
     $('#idleTime').val(stored.msparpIdleTime);
   } else {
     $('#idleTime').val(5);
+  }
+  if (stored.hasOwnProperty('msparpNotifyVolume')) {
+    $('#volSlider').slider('option', 'value',
+                           parseFloat(stored.msparpNotifyVolume));
   }
   toggleTimerOpts();
 }
@@ -31,7 +40,7 @@ function toggleTimerOpts() {
 function getStorage() {
   console.log('refreshing page');
   chrome.storage.local.get([
-    'msparpUseIdleTimer', 'msparpIdleTime'
+    'msparpUseIdleTimer', 'msparpIdleTime', 'msparpNotifyVolume'
   ], updatePage);
 }
 
@@ -61,12 +70,21 @@ function saveComplete() {
 $(function () {
   $('#useIdleTimer').on('change', toggleTimerOpts);
 
+  $('#volSlider').slider({
+    min: 0.0,
+    max: 1.0,
+    step: 0.01
+  }).on('slidestop', function (e, ui) {
+    playSound('user-inbound.wav', ui.value); //TODO: choosable sounds
+  });
+
   $('button#saveSettings').button({
     icons: { primary: 'ui-icon-disk' }
   }).click(function () {
     chrome.storage.local.set({
       msparpUseIdleTimer: $('#useIdleTimer').prop('checked'),
-      msparpIdleTime: $('#idleTime').val()
+      msparpIdleTime: $('#idleTime').val(),
+      msparpNotifyVolume: $('#volSlider').slider('value')
     }, saveComplete);
   });
 
@@ -84,7 +102,8 @@ $(function () {
   //it useful in case someone has multiple instances of this page open.
   chrome.storage.onChanged.addListener(function (changes, areaName) {
     if (changes.hasOwnProperty('msparpUseIdleTimer') ||
-        changes.hasOwnProperty('msparpIdleTime')) {
+        changes.hasOwnProperty('msparpIdleTime') ||
+        changes.hasOwnProperty('msparpNotifyVolume')) {
       getStorage();
     }
   });

@@ -10,7 +10,7 @@
      In the event of multiple pages open at once
 *** DONE HTML
 * Version 0.3 [0%]
-** TODO Sound configuration [0/2]
+** TODO Sound configuration [1/2]
    Sound settings will use chrome.storage.local rather than sync
 *** TODO Sound Chooser [0/3]
     Dynamically-generated list of files stored in the extension.
@@ -25,7 +25,7 @@
      song for a notification.
 **** TODO More sounds
      Gonna need some help finding them.
-*** TODO Volume Control
+*** DONE Volume Control
 ** TODO Popup notifications
    Using chrome.notifications
 *** TODO Logic
